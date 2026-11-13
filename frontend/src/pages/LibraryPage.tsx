@@ -197,7 +197,7 @@ export const LibraryPage: React.FC = () => {
                   <th className="px-5 py-2.5">Exam Session</th>
                   <th className="px-5 py-2.5">Scheme</th>
                   <th className="px-5 py-2.5">Status</th>
-                  <th className="px-5 py-2.5">Source</th>
+                  <th className="px-5 py-2.5">Actions & Source</th>
                   <th className="px-5 py-2.5">Questions</th>
                 </tr>
               </thead>
@@ -212,15 +212,30 @@ export const LibraryPage: React.FC = () => {
                       </span>
                     </td>
                     <td className="px-5 py-3 text-slate-500">
-                      <a
-                        href={p.source_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-indigo-600 hover:underline text-xs"
-                      >
-                        <span>View Source</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
+                      <div className="flex items-center gap-2.5">
+                        {p.has_file !== false && (
+                          <a
+                            href={p.file_url || `/api/papers/${p.id}/file`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-medium bg-indigo-50 text-indigo-700 border border-indigo-200 hover:bg-indigo-100 transition-colors"
+                          >
+                            <FileText className="w-3.5 h-3.5" />
+                            <span>Open paper</span>
+                          </a>
+                        )}
+                        {p.source_url && (
+                          <a
+                            href={p.source_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-slate-500 hover:text-indigo-600 hover:underline text-xs"
+                          >
+                            <span>Original source</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        )}
+                      </div>
                     </td>
                     <td className="px-5 py-3 text-slate-700 font-mono">
                       {p.questions_count || '10'} items

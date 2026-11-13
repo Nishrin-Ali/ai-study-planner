@@ -20,6 +20,7 @@ import httpx
 from app.database import SessionLocal
 from app.models.papers import Question, QuestionPaper
 from app.services.papers.extractor import extract_questions_from_pdf_data
+from app.services.security import download_secure_pdf, SSRFSecurityError
 
 logger = logging.getLogger(__name__)
 
@@ -103,19 +104,13 @@ async def search_tavily(query: str, api_key: str) -> List[str]:
 
 
 async def download_file(url: str) -> Optional[bytes]:
-    """Download a PDF file safely with rate-limiting, timeout, and max size cap."""
-    headers = {"User-Agent": USER_AGENT}
+    """Download a PDF file safely via secure HTTP client with SSRF protection, timeout, and max size cap."""
     try:
-        async with httpx.AsyncClient(timeout=REQUEST_TIMEOUT, follow_redirects=True) as client:
-            resp = await client.get(url, headers=headers)
-            if resp.status_code == 200:
-                content = resp.content
-                if len(content) <= MAX_PDF_SIZE:
-                    return content
-                else:
-                    logger.warning(f"PDF at {url} exceeded max size 25MB.")
-            else:
-                logger.warning(f"Failed to download {url}: HTTP {resp.status_code}")
+        return await download_secure_pdf(url)
+    except SSRFSecurityError as ssrf_err:
+        logger.warning(f"Blocked SSRF attempt when fetching {url}: {ssrf_err}")
+    except ValueError as val_err:
+        logger.warning(f"Validation failure when downloading {url}: {val_err}")
     except Exception as exc:
         logger.warning(f"Download error for {url}: {exc}")
     return None
@@ -158,7 +153,7 @@ def load_seed_papers_into_db(db, course_code: str, scheme: str) -> int:
 
             for idx, q_data in enumerate(paper_data.get("questions", []), 1):
                 q = Question(
-                    id=f"q_{paper.id}_{idx}",
+                    id=str(uuid.uuid4()),
                     paper_id=paper.id,
                     module=int(q_data.get("module", 1)),
                     question_number=str(q_data.get("question_number", f"{idx}.a")),
@@ -257,7 +252,7 @@ async def run_paper_fetch_job(
 
                         for idx, q_data in enumerate(questions, 1):
                             q = Question(
-                                id=f"q_{paper.id}_{idx}",
+                                id=str(uuid.uuid4()),
                                 paper_id=paper.id,
                                 module=int(q_data.get("module", 1)),
                                 question_number=str(q_data.get("question_number", f"{idx}.a")),
@@ -308,7 +303,7 @@ async def run_paper_fetch_job(
 
 def start_fetch_job(course_code: str, course_title: Optional[str], scheme: str) -> str:
     """Initialize a background fetch job and start the worker task."""
-    job_id = f"job_{uuid.uuid4().hex[:6]}"
+    job_id = f"job_{uuid.uuid4().hex}"
     JOBS[job_id] = {
         "job_id": job_id,
         "status": "in_progress",

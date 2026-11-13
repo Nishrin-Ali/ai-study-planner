@@ -1,17 +1,18 @@
 // VTU Study Planner Service Worker for Scheduled Notifications
+// Minimal scope: notification management only, zero caching of API responses or student plan data.
 
-self.addEventListener('install', (event: any) => {
+self.addEventListener('install', (event) => {
   event.waitUntil(self.skipWaiting());
 });
 
-self.addEventListener('activate', (event: any) => {
+self.addEventListener('activate', (event) => {
   event.waitUntil(self.clients.claim());
 });
 
-self.addEventListener('notificationclick', (event: any) => {
+self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   event.waitUntil(
-    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList: any[]) => {
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
       for (const client of clientList) {
         if (client.url && 'focus' in client) {
           return client.focus();
@@ -24,12 +25,12 @@ self.addEventListener('notificationclick', (event: any) => {
   );
 });
 
-self.addEventListener('message', (event: MessageEvent) => {
+self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SHOW_NOTIFICATION') {
     const { title, options } = event.data;
     self.registration.showNotification(title, {
-      icon: '/favicon.ico',
-      badge: '/favicon.ico',
+      icon: '/favicon.svg',
+      badge: '/favicon.svg',
       ...options,
     });
   }

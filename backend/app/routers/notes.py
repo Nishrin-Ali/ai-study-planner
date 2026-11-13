@@ -1,10 +1,11 @@
 import os
 import uuid
 from pathlib import Path
-from fastapi import APIRouter, UploadFile, File, Form, Depends, HTTPException, status
+from fastapi import APIRouter, UploadFile, File, Form, Depends, HTTPException, Request, status
 from sqlalchemy.orm import Session
 
 from app.database import get_db
+from app.limiter import limiter
 from app.models.notes import UploadedNotes, generate_notes_id
 from app.schemas.notes import NotesUploadResponse
 from app.services.notes import extract_text_from_pdf
@@ -18,7 +19,9 @@ MAX_FILE_SIZE_BYTES = 20 * 1024 * 1024  # 20 MB
 
 
 @router.post("/upload", response_model=NotesUploadResponse)
+@limiter.limit("10/minute")
 async def upload_notes(
+    request: Request,
     file: UploadFile = File(...),
     course_code: str = Form(...),
     scheme: str = Form("2022"),
@@ -43,9 +46,15 @@ async def upload_notes(
             detail=f"File exceeds maximum allowed size of 20MB (received {file_size / (1024*1024):.1f}MB)."
         )
 
-    # Save to disk
+    if not file_bytes.startswith(b"%PDF"):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid PDF file: Missing %PDF signature."
+        )
+
+    # Save to disk with randomized identifier to eliminate directory traversal risks
     notes_id = generate_notes_id()
-    safe_filename = f"{notes_id}_{Path(file.filename).name}"
+    safe_filename = f"{notes_id}.pdf"
     save_path = UPLOAD_DIR / safe_filename
     with open(save_path, "wb") as f:
         f.write(file_bytes)

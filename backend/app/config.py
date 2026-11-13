@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     GEMINI_API_KEY: Optional[str] = None
     GEMINI_MODEL: str = "gemini-2.5-flash"
     TAVILY_API_KEY: Optional[str] = None
+    ADMIN_TOKEN: Optional[str] = None
     DATABASE_URL: str = "sqlite:///./vtu_planner.db"
     ENVIRONMENT: str = "development"
     CORS_ORIGINS: str = "http://localhost:5173,http://127.0.0.1:5173"

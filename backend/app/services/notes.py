@@ -52,6 +52,7 @@ def detect_modules_from_text(text: str) -> List[int]:
 async def extract_text_from_pdf(pdf_bytes: bytes) -> Tuple[str, int, List[int]]:
     """
     Extracts text and detects modules from a PDF.
+    Enforces maximum page count (60 pages).
     If extracted text < 50 chars (e.g. scanned handwritten or image PDF),
     falls back to Gemini Multimodal transcription.
 
@@ -59,14 +60,19 @@ async def extract_text_from_pdf(pdf_bytes: bytes) -> Tuple[str, int, List[int]]:
         (extracted_text, pages_count, detected_modules)
     """
     doc = fitz.open(stream=pdf_bytes, filetype="pdf")
-    pages_count = len(doc)
-    page_texts: List[str] = []
+    try:
+        pages_count = len(doc)
+        if pages_count > 60:
+            raise ValueError(f"PDF exceeds maximum allowed limit of 60 pages (received {pages_count} pages).")
 
-    for page_num in range(pages_count):
-        page = doc.load_page(page_num)
-        text = page.get_text()
-        if text:
-            page_texts.append(text)
+        page_texts: List[str] = []
+        for page_num in range(pages_count):
+            page = doc.load_page(page_num)
+            text = page.get_text()
+            if text:
+                page_texts.append(text)
+    finally:
+        doc.close()
 
     combined_text = "\n".join(page_texts).strip()
 

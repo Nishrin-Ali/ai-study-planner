@@ -96,12 +96,27 @@ A complete, working web application built exclusively for **Visvesvaraya Technol
 ---
 
 ## 4. Running Tests
-Run the deterministic scheduler and API test suite:
+
+### Backend Unit & Integration Tests (20 tests)
+Run the full test suite verifying scheduler rules, catalog validation, AI Study Buddy offline fallback, paper file streaming, and repetition clustering:
 ```bash
 $env:PYTHONPATH = "backend"
 python -m pytest backend/tests
 ```
-All 11 unit & integration tests verify session timing, breaks, lunch placement, module continuity, heavy plan detection, and API endpoints.
+
+### Reminders Subsystem Unit Tests (6 tests)
+Run the Node.js test suite verifying timezone calculation, 1-second interval ticker, 60s catch-up window, localStorage deduplication, and sound toggle:
+```bash
+node --test --experimental-strip-types frontend/src/services/reminders.test.ts
+```
+
+---
+
+## 5. Study Buddy AI Chatbot & Security Hardening
+- **Study Buddy**: Built-in VTU senior mentor available on every timetable topic. Provides concise explanations, analogies, exam scoring tips (4 points + diagram for 5 marks), multilingual replies (Kannada, Hindi, English), and practice quizzes.
+- **SSRF & Upload Defense**: All outbound web fetches strictly validate IP ranges against private, loopback, and cloud metadata targets (`169.254.169.254`). Uploads verify `%PDF` magic bytes and enforce random UUID storage outside static assets.
+- **Prompt Injection Containment**: Untrusted notes and web texts are wrapped in strict delimiters (`<<<UNTRUSTED_CONTENT>>>`) with explicit model containment rules.
+- **Defense-in-Depth Headers**: Standard security headers (`X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy`) and SlowAPI rate limiting protect all endpoints.
 
 ---
 

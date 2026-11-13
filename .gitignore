@@ -18,6 +18,7 @@ frontend/.env
 *.sqlite3
 backend/uploads/
 backend/vtu_planner.db
+backend/data/papers_cache/
 
 # Node.js / Frontend
 node_modules/

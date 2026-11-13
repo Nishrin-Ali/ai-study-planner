@@ -6,11 +6,11 @@ from app.database import Base
 
 
 def generate_paper_id() -> str:
-    return f"qp_{uuid.uuid4().hex[:8]}"
+    return str(uuid.uuid4())
 
 
 def generate_question_id() -> str:
-    return f"q_{uuid.uuid4().hex[:8]}"
+    return str(uuid.uuid4())
 
 
 class QuestionPaper(Base):
@@ -39,5 +39,6 @@ class Question(Base):
     question_number = Column(String, nullable=False)
     text = Column(Text, nullable=False)
     marks = Column(Integer, nullable=True, default=10)
+    page_number = Column(Integer, nullable=True, default=1)
 
     paper = relationship("QuestionPaper", back_populates="questions")

@@ -42,6 +42,8 @@ class PaperSummaryResponse(BaseModel):
     status: str = "validated"
     questions_count: int = 0
     fetched_at: str
+    has_file: bool = True
+    file_url: Optional[str] = None
 
 
 class ImportantQuestionsRequest(BaseModel):
@@ -58,6 +60,9 @@ class CanonicalQuestionItem(BaseModel):
     repetition_label: str
     sessions: List[str]
     marks: int = 10
+    paper_ids: List[str] = []
+    primary_paper_id: Optional[str] = None
+    page_number: Optional[int] = 1
 
 
 class ModuleQuestionsGroup(BaseModel):

@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from pydantic import BaseModel
 
 
@@ -14,6 +14,9 @@ class CourseSchema(BaseModel):
     branch: str
     semester: int
     scheme: str
+    credits: Optional[float] = None
+    verified: Optional[bool] = True
+    source_url: Optional[str] = None
 
 
 class CatalogResponse(BaseModel):

@@ -6,7 +6,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
 from app.database import engine, Base
 import app.models  # Ensure all SQLAlchemy models are registered
-from app.routers import catalog_router, notes_router, plans_router, papers_router
+from app.routers import catalog_router, notes_router, plans_router, papers_router, chat_router
+from app.limiter import limiter
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
 
 logging.basicConfig(
     level=logging.INFO,
@@ -43,6 +46,10 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+# Attach SlowAPI rate limiter
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
 # CORS configuration allowing frontend clients (e.g. Vite on port 5173)
 app.add_middleware(
     CORSMiddleware,
@@ -57,11 +64,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.middleware("http")
+async def add_security_headers(request, call_next):
+    """Add defense-in-depth HTTP security headers to all responses."""
+    response = await call_next(request)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    return response
+
 # Mount API Routers
 app.include_router(catalog_router)
 app.include_router(papers_router)
 app.include_router(notes_router)
 app.include_router(plans_router)
+app.include_router(chat_router)
 
 
 @app.get("/api/health", tags=["Health"])

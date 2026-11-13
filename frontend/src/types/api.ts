@@ -10,6 +10,9 @@ export interface CatalogCourse {
   branch: string;
   semester: number;
   scheme: string;
+  credits?: number;
+  verified?: boolean;
+  source_url?: string;
 }
 
 export interface CatalogResponse {
@@ -39,6 +42,8 @@ export interface QuestionPaperSummary {
   status: string;
   questions_count?: number;
   fetched_at: string;
+  has_file?: boolean;
+  file_url?: string | null;
 }
 
 export interface FetchJobProgress {
@@ -59,6 +64,9 @@ export interface ImportantQuestion {
   repetition_label: string;
   sessions: string[];
   marks: number;
+  paper_ids?: string[];
+  primary_paper_id?: string | null;
+  page_number?: number;
 }
 
 export interface ModuleQuestions {

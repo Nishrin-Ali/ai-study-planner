@@ -1,9 +1,10 @@
 from datetime import datetime
 from typing import Dict
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy.orm import Session
 
 from app.database import get_db
+from app.limiter import limiter
 from app.models.plans import StudyPlan, PlanItem, Answer, generate_plan_id
 from app.models.notes import UploadedNotes
 from app.schemas.plans import (
@@ -21,24 +22,25 @@ router = APIRouter(prefix="/api/plan", tags=["Study Plans"])
 
 
 @router.post("", response_model=StudyPlanResponse, status_code=status.HTTP_201_CREATED)
-async def create_study_plan(request: PlanCreateRequest, db: Session = Depends(get_db)):
+@limiter.limit("15/minute")
+async def create_study_plan(request: Request, body: PlanCreateRequest, db: Session = Depends(get_db)):
     """
     Generate a deterministic timetable with AI topic effort estimation and answers.
     Takes syllabus parameters, calculates days, interleaves study sessions and breaks,
     and returns full timetable with grounded answers.
     """
     notes_record = None
-    if request.notes_id:
-        notes_record = db.query(UploadedNotes).filter(UploadedNotes.id == request.notes_id).first()
+    if body.notes_id:
+        notes_record = db.query(UploadedNotes).filter(UploadedNotes.id == body.notes_id).first()
 
     plan_id = generate_plan_id()
 
     # Generate timetable data
     is_heavy, heavy_warning, days_data, answers_data = generate_plan_schedule(
-        course_code=request.course_code,
-        course_title=request.course_title,
-        num_days=request.num_days,
-        num_modules=request.num_modules,
+        course_code=body.course_code,
+        course_title=body.course_title,
+        num_days=body.num_days,
+        num_modules=body.num_modules,
         notes_record=notes_record,
     )
 
@@ -47,10 +49,10 @@ async def create_study_plan(request: PlanCreateRequest, db: Session = Depends(ge
     # Save StudyPlan record
     db_plan = StudyPlan(
         id=plan_id,
-        course_code=request.course_code,
-        course_title=request.course_title,
-        num_days=request.num_days,
-        num_modules=request.num_modules,
+        course_code=body.course_code,
+        course_title=body.course_title,
+        num_days=body.num_days,
+        num_modules=body.num_modules,
         is_heavy_plan=is_heavy,
         heavy_warning=heavy_warning,
         created_at=created_at,
@@ -115,10 +117,10 @@ async def create_study_plan(request: PlanCreateRequest, db: Session = Depends(ge
 
     return StudyPlanResponse(
         plan_id=plan_id,
-        course_code=request.course_code,
-        course_title=request.course_title,
-        num_days=request.num_days,
-        num_modules=request.num_modules,
+        course_code=body.course_code,
+        course_title=body.course_title,
+        num_days=body.num_days,
+        num_modules=body.num_modules,
         is_heavy_plan=is_heavy,
         heavy_warning=heavy_warning,
         created_at=created_at,

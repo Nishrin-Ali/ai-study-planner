@@ -4,10 +4,13 @@ from pathlib import Path
 from typing import List, Optional
 import uuid
 
-from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile, status
+from fastapi import APIRouter, Depends, File, Form, Header, HTTPException, Request, UploadFile, status
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
+from app.config import settings
 from app.database import get_db
+from app.limiter import limiter
 from app.models.papers import Question, QuestionPaper
 from app.schemas.papers import (
     ImportantQuestionsRequest,
@@ -20,11 +23,13 @@ from app.schemas.papers import (
 from app.services.papers.extractor import extract_questions_from_pdf_data
 from app.services.papers.fetcher import get_job_status, start_fetch_job
 from app.services.papers.repetition import analyze_important_questions, ensure_seeds_loaded
+from app.services.security import is_safe_file_path
 
 router = APIRouter(prefix="/api", tags=["Papers"])
 
 CACHE_DIR = Path(__file__).resolve().parent.parent.parent / "data" / "papers_cache"
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
+SEEDS_DIR = Path(__file__).resolve().parent.parent.parent / "data" / "seeds"
 
 
 @router.post(
@@ -33,12 +38,13 @@ CACHE_DIR.mkdir(parents=True, exist_ok=True)
     status_code=status.HTTP_202_ACCEPTED,
     summary="Trigger asynchronous background web search and ingestion"
 )
-async def fetch_question_papers(request: PaperFetchRequest):
+@limiter.limit("10/minute")
+async def fetch_question_papers(request: Request, body: PaperFetchRequest):
     """Trigger background web discovery and ingestion of VTU previous question papers."""
     job_id = start_fetch_job(
-        course_code=request.course_code,
-        course_title=request.course_title,
-        scheme=request.scheme,
+        course_code=body.course_code,
+        course_title=body.course_title,
+        scheme=body.scheme,
     )
     return PaperFetchResponse(
         job_id=job_id,
@@ -96,6 +102,7 @@ async def get_cached_papers(
 
     summaries = []
     for p in papers:
+        has_file = bool(p.file_path and Path(p.file_path).exists())
         summaries.append(PaperSummaryResponse(
             id=p.id,
             course_code=p.course_code,
@@ -104,9 +111,43 @@ async def get_cached_papers(
             source_url=p.source_url,
             status=p.status or "validated",
             questions_count=len(p.questions),
-            fetched_at=p.fetched_at.isoformat() if p.fetched_at else ""
+            fetched_at=p.fetched_at.isoformat() if p.fetched_at else "",
+            has_file=has_file,
+            file_url=f"/api/papers/{p.id}/file" if has_file else None,
         ))
     return summaries
+
+
+@router.get(
+    "/papers/{paper_id}/file",
+    summary="Stream validated question paper PDF inline with path-traversal safeguards"
+)
+async def get_paper_file(paper_id: str, db: Session = Depends(get_db)):
+    """Stream cached question paper PDF inline with strict directory traversal prevention."""
+    paper = db.query(QuestionPaper).filter(QuestionPaper.id == paper_id).first()
+    if not paper or not paper.file_path:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Question paper '{paper_id}' not found or has no attached PDF file."
+        )
+
+    file_path = Path(paper.file_path).resolve()
+    # Check directory traversal
+    if not is_safe_file_path(file_path, [CACHE_DIR, SEEDS_DIR]) or not file_path.is_file():
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="The requested question paper PDF is unavailable on disk."
+        )
+
+    sanitized_session = (paper.exam_session or "exam").replace("/", "_").replace(" ", "_")
+    download_filename = f"{paper.course_code}_{sanitized_session}.pdf"
+
+    return FileResponse(
+        path=file_path,
+        media_type="application/pdf",
+        filename=download_filename,
+        content_disposition_type="inline"
+    )
 
 
 @router.post(
@@ -120,12 +161,19 @@ async def upload_question_paper(
     branch: Optional[str] = Form(None),
     semester: Optional[int] = Form(None),
     exam_session: Optional[str] = Form(None),
+    x_admin_token: Optional[str] = Header(None, alias="X-Admin-Token"),
     db: Session = Depends(get_db)
 ):
     """Upload a VTU question paper PDF manually.
 
     Validates VTU headers, extracts questions module-wise, and caches to DB.
     """
+    if settings.ADMIN_TOKEN and x_admin_token != settings.ADMIN_TOKEN:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or missing X-Admin-Token header for paper uploads."
+        )
+
     if not file.filename.lower().endswith(".pdf"):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -137,6 +185,13 @@ async def upload_question_paper(
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="File size exceeds maximum allowed 25MB limit."
+        )
+
+    # Magic byte verification: Must start with %PDF
+    if not pdf_bytes.startswith(b"%PDF"):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid PDF file: Missing %PDF file signature."
         )
 
     is_valid, reason, detected_session, questions, raw_text = await extract_questions_from_pdf_data(

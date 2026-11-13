@@ -5,7 +5,7 @@ from app.database import Base
 
 
 def generate_notes_id() -> str:
-    return f"notes_{uuid.uuid4().hex[:8]}"
+    return str(uuid.uuid4())
 
 
 class UploadedNotes(Base):

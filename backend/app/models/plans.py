@@ -6,15 +6,15 @@ from app.database import Base
 
 
 def generate_plan_id() -> str:
-    return f"plan_{uuid.uuid4().hex[:8]}"
+    return str(uuid.uuid4())
 
 
 def generate_item_id() -> str:
-    return f"item_{uuid.uuid4().hex[:8]}"
+    return str(uuid.uuid4())
 
 
 def generate_answer_id() -> str:
-    return f"ans_{uuid.uuid4().hex[:8]}"
+    return str(uuid.uuid4())
 
 
 class StudyPlan(Base):

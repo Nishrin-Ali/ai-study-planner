@@ -90,6 +90,7 @@ def ensure_seeds_loaded(db: Session, course_code: str, scheme: Optional[str] = N
                     question_number=str(q_data.get("question_number", f"{idx}.a")),
                     text=str(q_data.get("text", "")).strip(),
                     marks=int(q_data.get("marks", 10)),
+                    page_number=int(q_data.get("page_number", 1)),
                 )
                 db.add(q)
 
@@ -157,7 +158,10 @@ def cluster_questions_algorithmically(module: int, session_questions: List[Dict[
     for idx, c in enumerate(clusters, 1):
         rep_count = len(c["sessions"])
         sessions_list = sorted(list(c["sessions"]))
-        label = f"{rep_count} times" if rep_count > 1 else "1 time"
+        label = "Once" if rep_count == 1 else f"{rep_count} times"
+        paper_ids = sorted(list({it.get("paper_id") for it in c["items"] if it.get("paper_id")}))
+        primary_paper_id = paper_ids[0] if paper_ids else None
+        page_number = c["items"][0].get("page_number", 1) if c["items"] else 1
         result_items.append(CanonicalQuestionItem(
             id=f"iq_m{module}_{idx:02d}",
             canonical_question=c["canonical_question"],
@@ -165,7 +169,10 @@ def cluster_questions_algorithmically(module: int, session_questions: List[Dict[
             repetition_count=rep_count,
             repetition_label=label,
             sessions=sessions_list,
-            marks=c["marks"]
+            marks=c["marks"],
+            paper_ids=paper_ids,
+            primary_paper_id=primary_paper_id,
+            page_number=page_number,
         ))
 
     result_items.sort(key=lambda x: (x.repetition_count, len(x.canonical_question)), reverse=True)
@@ -188,7 +195,9 @@ async def cluster_questions_with_gemini(module: int, session_questions: List[Dic
     prompt = f"""
 You are an expert VTU curriculum analyzer.
 Given the following list of examination questions for Module {module} collected across different exam sessions:
+<<<UNTRUSTED_CONTENT>>>
 {json.dumps(simplified_items, indent=2)}
+<<<END_UNTRUSTED_CONTENT>>>
 
 Task:
 1. Cluster semantically equivalent or overlapping questions that test the exact same concept into a single "canonical_question".
@@ -198,7 +207,7 @@ Task:
    - "canonical_question": clear, representative VTU question formulation.
    - "module": {module}
    - "repetition_count": int (number of distinct sessions)
-   - "repetition_label": e.g. "4 times", "2 times", "1 time"
+   - "repetition_label": e.g. "4 times", "2 times", "Once"
    - "sessions": list of distinct session strings
    - "marks": int (typical marks, e.g. 10 or 8)
 
@@ -220,7 +229,14 @@ Return ONLY valid JSON array.
             items: List[CanonicalQuestionItem] = []
             for idx, c in enumerate(data, 1):
                 rep_count = int(c.get("repetition_count", len(c.get("sessions", []))))
-                label = c.get("repetition_label", f"{rep_count} times" if rep_count > 1 else "1 time")
+                label = "Once" if rep_count == 1 else f"{rep_count} times"
+                matched_sessions = set(c.get("sessions", []))
+                # Correlate session questions to get real paper_ids and page numbers
+                matched_q = [q for q in session_questions if q.get("session") in matched_sessions]
+                paper_ids = sorted(list({q.get("paper_id") for q in matched_q if q.get("paper_id")}))
+                primary_paper_id = paper_ids[0] if paper_ids else None
+                page_num = matched_q[0].get("page_number", 1) if matched_q else 1
+
                 items.append(CanonicalQuestionItem(
                     id=f"iq_m{module}_{idx:02d}",
                     canonical_question=str(c.get("canonical_question", "")).strip(),
@@ -228,7 +244,10 @@ Return ONLY valid JSON array.
                     repetition_count=rep_count,
                     repetition_label=label,
                     sessions=list(c.get("sessions", [])),
-                    marks=int(c.get("marks", 10))
+                    marks=int(c.get("marks", 10)),
+                    paper_ids=paper_ids,
+                    primary_paper_id=primary_paper_id,
+                    page_number=page_num,
                 ))
             items.sort(key=lambda x: x.repetition_count, reverse=True)
             return items
@@ -322,7 +341,9 @@ async def analyze_important_questions(
                     "session": session,
                     "text": q.text,
                     "marks": q.marks or 10,
-                    "question_number": q.question_number
+                    "question_number": q.question_number,
+                    "paper_id": p.id,
+                    "page_number": getattr(q, "page_number", 1) or 1,
                 })
 
         active_modules = selected_modules if selected_modules else sorted(list(module_questions.keys()))

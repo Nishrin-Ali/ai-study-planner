@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StudyPlanResponse, TimetableDay, TimetableItem } from '../types/api';
 import { togglePlanItemCompletion } from '../services/api';
 import { ActiveStatusBar } from './ActiveStatusBar';
+import { StudyBuddyDrawer } from './StudyBuddyDrawer';
 import {
   Clock,
   BookOpen,
@@ -13,6 +14,7 @@ import {
   AlertTriangle,
   ExternalLink,
   PlusCircle,
+  Bot,
 } from 'lucide-react';
 
 interface Props {
@@ -23,6 +25,11 @@ interface Props {
 export const Step4Timetable: React.FC<Props> = ({ plan, onReset }) => {
   const [selectedDayIdx, setSelectedDayIdx] = useState(0);
   const [expandedAnswerId, setExpandedAnswerId] = useState<string | null>(null);
+  const [chatItem, setChatItem] = useState<{
+    itemId: string;
+    questionText: string;
+    module: number | null;
+  } | null>(null);
   const [completedItems, setCompletedItems] = useState<Record<string, boolean>>(() => {
     const map: Record<string, boolean> = {};
     plan.days.forEach((d) => {
@@ -77,7 +84,7 @@ export const Step4Timetable: React.FC<Props> = ({ plan, onReset }) => {
   return (
     <div className="space-y-6">
       {/* Sticky Top Status & Reminder Controls */}
-      <ActiveStatusBar currentDay={activeDay} />
+      <ActiveStatusBar currentDay={activeDay} planId={plan.plan_id} />
 
       {/* Plan Header & Meta */}
       <div className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -188,19 +195,38 @@ export const Step4Timetable: React.FC<Props> = ({ plan, onReset }) => {
                   </div>
                 </div>
 
-                {/* View Answer button */}
-                {answer && (
+                {/* Actions: Ask Study Buddy & View Answer */}
+                <div className="flex items-center gap-1.5 shrink-0">
                   <button
                     type="button"
                     onClick={() =>
-                      setExpandedAnswerId(isExpanded ? null : (item.answer_id as string))
+                      setChatItem({
+                        itemId: item.id,
+                        questionText: item.title,
+                        module: item.module,
+                      })
                     }
-                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-medium border border-slate-200 hover:bg-slate-50 text-slate-700 transition-colors shrink-0"
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-medium border border-indigo-200 bg-indigo-50/50 hover:bg-indigo-100/70 text-indigo-700 transition-colors"
+                    title="Ask VTU Study Buddy to explain this concept"
                   >
-                    <span>{isExpanded ? 'Hide Answer' : 'View Answer'}</span>
-                    {isExpanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                    <Bot className="w-3.5 h-3.5 text-indigo-600" />
+                    <span className="hidden sm:inline">Ask Study Buddy</span>
+                    <span className="sm:hidden">Buddy</span>
                   </button>
-                )}
+
+                  {answer && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setExpandedAnswerId(isExpanded ? null : (item.answer_id as string))
+                      }
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-medium border border-slate-200 hover:bg-slate-50 text-slate-700 transition-colors"
+                    >
+                      <span>{isExpanded ? 'Hide' : 'Answer'}</span>
+                      {isExpanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                    </button>
+                  )}
+                </div>
               </div>
 
               {/* Expandable Answer Card */}
@@ -243,6 +269,19 @@ export const Step4Timetable: React.FC<Props> = ({ plan, onReset }) => {
           );
         })}
       </div>
+
+      {/* AI Study Buddy Drawer */}
+      {chatItem && (
+        <StudyBuddyDrawer
+          isOpen={!!chatItem}
+          onClose={() => setChatItem(null)}
+          planId={plan.plan_id}
+          itemId={chatItem.itemId}
+          questionText={chatItem.questionText}
+          module={chatItem.module}
+          courseCode={plan.course_code}
+        />
+      )}
     </div>
   );
 };

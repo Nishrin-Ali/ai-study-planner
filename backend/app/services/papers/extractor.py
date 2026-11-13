@@ -40,18 +40,25 @@ def get_gemini_client():
 
 
 def extract_raw_text_from_pdf(pdf_bytes: bytes) -> str:
-    """Extract plain text from PDF bytes using fitz or pypdf."""
+    """Extract plain text from PDF bytes using fitz or pypdf with max 60-page protection."""
     text_chunks: List[str] = []
 
     if fitz:
         try:
             doc = fitz.open(stream=pdf_bytes, filetype="pdf")
-            for page in doc:
-                text_chunks.append(page.get_text() or "")
-            doc.close()
+            try:
+                pages_count = len(doc)
+                if pages_count > 60:
+                    raise ValueError(f"Question paper exceeds maximum 60 pages limit ({pages_count} pages).")
+                for page in doc:
+                    text_chunks.append(page.get_text() or "")
+            finally:
+                doc.close()
             combined = "\n".join(text_chunks).strip()
             if len(combined) >= 50:
                 return combined
+        except ValueError:
+            raise
         except Exception as e:
             logger.warning(f"fitz extraction failed: {e}")
 
