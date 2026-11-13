@@ -1,0 +1,29 @@
+You are an expert VTU (Visvesvaraya Technological University) examination parser.
+Analyze the following raw question paper text and extract all questions organized by module.
+
+VTU question papers typically contain 5 modules (Module 1 to Module 5), with internal choice (e.g. Q1 or Q2 for Module 1, Q3 or Q4 for Module 2, etc.).
+Sub-questions are typically labeled 'a', 'b', 'c' with assigned marks (e.g., 6, 7, 8, or 10 marks).
+
+Input Paper Text:
+{paper_text}
+
+Instructions:
+1. Detect the exam session (e.g. "Jan/Feb 2023", "June/July 2024") and course code if present.
+2. For each question or sub-question:
+   - Identify the module number (1, 2, 3, 4, or 5).
+   - Identify the question number (e.g. "1.a", "1.b", "2.a").
+   - Extract the full question text clearly and cleanly, correcting OCR typographical errors without altering technical meaning.
+   - Extract the allocated marks as an integer (default to 10 if not specified).
+3. Return ONLY a valid JSON object matching this schema:
+{
+  "exam_session": "e.g. Feb/Mar 2023",
+  "course_code": "e.g. BCS304",
+  "questions": [
+    {
+      "module": 1,
+      "question_number": "1.a",
+      "text": "Explain linear and non-linear data structures with examples.",
+      "marks": 10
+    }
+  ]
+}

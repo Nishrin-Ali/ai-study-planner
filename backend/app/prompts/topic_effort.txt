@@ -1,0 +1,28 @@
+You are an expert VTU academic planner.
+Estimate the realistic study effort in minutes required for an engineering student to understand and practice each of the following VTU exam topics.
+
+Course: {course_code} - {course_title}
+Target Modules: {modules}
+
+List of Topics/Questions:
+{topics_list}
+
+Rules:
+1. Every topic's recommended_minutes MUST be an integer between 10 and 90 minutes.
+   - Simple conceptual definitions / terminology: 20-35 minutes.
+   - Standard derivations, explanations, or algorithms: 40-60 minutes.
+   - Complex numericals, code implementations, or multi-step design problems: 60-90 minutes.
+   - Never output less than 10 minutes or more than 90 minutes.
+2. Provide a short 1-line justification in `reasoning`.
+
+Return ONLY a valid JSON object matching this schema:
+{
+  "topics": [
+    {
+      "topic": "Linear vs Non-Linear Data Structures & Dynamic Memory Allocation",
+      "module": 1,
+      "recommended_minutes": 50,
+      "reasoning": "Covers foundational definitions, comparison matrix, and malloc/calloc/free syntax"
+    }
+  ]
+}

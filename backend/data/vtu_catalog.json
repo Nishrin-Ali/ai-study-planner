@@ -1,0 +1,151 @@
+{
+  "university": "Visvesvaraya Technological University (VTU)",
+  "schemes": ["2022", "2021", "2018"],
+  "branches": [
+    {
+      "code": "CSE",
+      "name": "Computer Science & Engineering",
+      "semesters": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "code": "ISE",
+      "name": "Information Science & Engineering",
+      "semesters": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "code": "AIML",
+      "name": "Artificial Intelligence & Machine Learning",
+      "semesters": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "code": "AIDS",
+      "name": "Artificial Intelligence & Data Science",
+      "semesters": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "code": "ECE",
+      "name": "Electronics & Communication Engineering",
+      "semesters": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "code": "EEE",
+      "name": "Electrical & Electronics Engineering",
+      "semesters": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "code": "ME",
+      "name": "Mechanical Engineering",
+      "semesters": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "code": "CV",
+      "name": "Civil Engineering",
+      "semesters": [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      "code": "FY-CYCLE",
+      "name": "First Year Physics/Chemistry Cycle",
+      "semesters": [1, 2]
+    }
+  ],
+  "courses": [
+    {
+      "code": "BCS301",
+      "title": "Mathematics for Computer Science",
+      "branch": "CSE",
+      "semester": 3,
+      "scheme": "2022"
+    },
+    {
+      "code": "BCS302",
+      "title": "Digital Design and Computer Organization",
+      "branch": "CSE",
+      "semester": 3,
+      "scheme": "2022"
+    },
+    {
+      "code": "BCS303",
+      "title": "Operating Systems",
+      "branch": "CSE",
+      "semester": 3,
+      "scheme": "2022"
+    },
+    {
+      "code": "BCS304",
+      "title": "Data Structures and Applications",
+      "branch": "CSE",
+      "semester": 3,
+      "scheme": "2022"
+    },
+    {
+      "code": "BCS401",
+      "title": "Analysis & Design of Algorithms",
+      "branch": "CSE",
+      "semester": 4,
+      "scheme": "2022"
+    },
+    {
+      "code": "BCS402",
+      "title": "Database Management Systems",
+      "branch": "CSE",
+      "semester": 4,
+      "scheme": "2022"
+    },
+    {
+      "code": "21CS51",
+      "title": "Management, Entrepreneurship and IPR",
+      "branch": "CSE",
+      "semester": 5,
+      "scheme": "2021"
+    },
+    {
+      "code": "21CS52",
+      "title": "Computer Networks and Security",
+      "branch": "CSE",
+      "semester": 5,
+      "scheme": "2021"
+    },
+    {
+      "code": "21CS53",
+      "title": "Database Management System",
+      "branch": "CSE",
+      "semester": 5,
+      "scheme": "2021"
+    },
+    {
+      "code": "21CS54",
+      "title": "Automata Theory and Computability",
+      "branch": "CSE",
+      "semester": 5,
+      "scheme": "2021"
+    },
+    {
+      "code": "18CS61",
+      "title": "System Software and Compilers",
+      "branch": "CSE",
+      "semester": 6,
+      "scheme": "2018"
+    },
+    {
+      "code": "18CS62",
+      "title": "Computer Graphics and Visualization",
+      "branch": "CSE",
+      "semester": 6,
+      "scheme": "2018"
+    },
+    {
+      "code": "18CS71",
+      "title": "Artificial Intelligence and Machine Learning",
+      "branch": "CSE",
+      "semester": 7,
+      "scheme": "2018"
+    },
+    {
+      "code": "18CS72",
+      "title": "Big Data Analytics",
+      "branch": "CSE",
+      "semester": 7,
+      "scheme": "2018"
+    }
+  ]
+}

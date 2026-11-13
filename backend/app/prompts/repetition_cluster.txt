@@ -1,0 +1,29 @@
+You are an expert VTU curriculum analyst.
+You are given a list of questions collected across multiple VTU examination sessions for course {course_code}.
+
+Questions:
+{raw_questions_json}
+
+Goal:
+Group semantically identical or near-identical questions into canonical question clusters per module, and count how many different exam sessions each question appeared in.
+
+Rules:
+1. Two questions belong to the same cluster if they test the exact same concept or problem (e.g. "Differentiate between static and dynamic memory allocation" and "Compare static vs dynamic memory allocation with examples").
+2. Formulate a clear, comprehensive `canonical_question` representing the cluster.
+3. List all distinct exam sessions in which this question appeared in `sessions`.
+4. `repetition_count` must equal the number of unique sessions listed.
+5. Only include modules requested: {requested_modules}.
+6. Sort clusters within each module in descending order of repetition_count.
+
+Return ONLY a valid JSON object matching this schema:
+{
+  "clusters": [
+    {
+      "canonical_question": "Explain linear and non-linear data structures with examples. Distinguish between static and dynamic memory allocation.",
+      "module": 1,
+      "repetition_count": 3,
+      "sessions": ["Jan/Feb 2023", "June/July 2023", "Jan/Feb 2024"],
+      "marks": 10
+    }
+  ]
+}

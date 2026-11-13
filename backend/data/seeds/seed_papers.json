@@ -1,0 +1,682 @@
+[
+  {
+    "id": "seed_bcs304_jan2023",
+    "course_code": "BCS304",
+    "course_title": "Data Structures and Applications",
+    "scheme": "2022",
+    "branch": "CSE",
+    "semester": 3,
+    "exam_session": "Jan/Feb 2023",
+    "source_url": "https://vtu.ac.in/qp/2023/BCS304_JanFeb2023.pdf",
+    "status": "validated",
+    "questions_count": 10,
+    "raw_text": "USN: Visvesvaraya Technological University, Belagavi. Third Semester B.E. Degree Examination, Jan/Feb 2023. Course Code: BCS304. Data Structures and Applications. Time: 3 Hours. Max. Marks: 100. Note: Answer any FIVE full questions, choosing ONE full question from each module.",
+    "questions": [
+      {
+        "module": 1,
+        "question_number": "1.a",
+        "text": "Explain linear and non-linear data structures with examples. Distinguish between static and dynamic memory allocation.",
+        "marks": 10,
+        "sub_parts": ["1.a"]
+      },
+      {
+        "module": 1,
+        "question_number": "2.a",
+        "text": "Define recursion. Write a C program to solve the Tower of Hanoi problem with recursive trace.",
+        "marks": 10,
+        "sub_parts": ["2.a"]
+      },
+      {
+        "module": 2,
+        "question_number": "3.a",
+        "text": "Define stack. Explain push, pop, display operations with array implementation and boundary conditions.",
+        "marks": 10,
+        "sub_parts": ["3.a"]
+      },
+      {
+        "module": 2,
+        "question_number": "4.a",
+        "text": "Explain conversion of infix expression to postfix expression and evaluate the postfix expression using stack.",
+        "marks": 10,
+        "sub_parts": ["4.a"]
+      },
+      {
+        "module": 3,
+        "question_number": "5.a",
+        "text": "What is a singly linked list? Write functions to insert a node at the front, delete a node from the end, and reverse a singly linked list.",
+        "marks": 10,
+        "sub_parts": ["5.a"]
+      },
+      {
+        "module": 3,
+        "question_number": "6.a",
+        "text": "Explain doubly linked list with node structure. Write C algorithms to insert a node to the left of a target key and delete a node from the doubly linked list.",
+        "marks": 10,
+        "sub_parts": ["6.a"]
+      },
+      {
+        "module": 4,
+        "question_number": "7.a",
+        "text": "Define binary tree traversals (Inorder, Preorder, Postorder). Construct a binary tree given Inorder and Preorder traversals.",
+        "marks": 10,
+        "sub_parts": ["7.a"]
+      },
+      {
+        "module": 4,
+        "question_number": "8.a",
+        "text": "Define Binary Search Tree (BST). Write algorithms to insert, search, and delete an element in a binary search tree.",
+        "marks": 10,
+        "sub_parts": ["8.a"]
+      },
+      {
+        "module": 5,
+        "question_number": "9.a",
+        "text": "Explain Depth First Search (DFS) and Breadth First Search (BFS) graph traversal algorithms with adjacency matrix/list and examples.",
+        "marks": 10,
+        "sub_parts": ["9.a"]
+      },
+      {
+        "module": 5,
+        "question_number": "10.a",
+        "text": "What is hashing? Explain collision resolution techniques: open addressing (linear probing, quadratic probing) and separate chaining with examples.",
+        "marks": 10,
+        "sub_parts": ["10.a"]
+      }
+    ]
+  },
+  {
+    "id": "seed_bcs304_jul2023",
+    "course_code": "BCS304",
+    "course_title": "Data Structures and Applications",
+    "scheme": "2022",
+    "branch": "CSE",
+    "semester": 3,
+    "exam_session": "June/July 2023",
+    "source_url": "https://vtu.ac.in/qp/2023/BCS304_JuneJuly2023.pdf",
+    "status": "validated",
+    "questions_count": 10,
+    "raw_text": "USN: Visvesvaraya Technological University, Belagavi. Third Semester B.E. Degree Examination, June/July 2023. Course Code: BCS304. Data Structures and Applications. Time: 3 Hours. Max. Marks: 100.",
+    "questions": [
+      {
+        "module": 1,
+        "question_number": "1.a",
+        "text": "Explain linear and non-linear data structures with examples. Explain dynamic memory allocation functions malloc(), calloc(), realloc(), and free().",
+        "marks": 10,
+        "sub_parts": ["1.a"]
+      },
+      {
+        "module": 1,
+        "question_number": "2.a",
+        "text": "What is a sparse matrix? Explain its triplet representation and write a C function to find the transpose of a sparse matrix.",
+        "marks": 10,
+        "sub_parts": ["2.a"]
+      },
+      {
+        "module": 2,
+        "question_number": "3.a",
+        "text": "Define stack. Explain push, pop, display operations with array implementation and boundary conditions.",
+        "marks": 10,
+        "sub_parts": ["3.a"]
+      },
+      {
+        "module": 2,
+        "question_number": "4.a",
+        "text": "Define circular queue. Explain circular queue operations with algorithms, enqueue and dequeue, and overcome limitation of linear queue.",
+        "marks": 10,
+        "sub_parts": ["4.a"]
+      },
+      {
+        "module": 3,
+        "question_number": "5.a",
+        "text": "What is a singly linked list? Write functions to insert a node at the front, delete a node from the end, and reverse a singly linked list.",
+        "marks": 10,
+        "sub_parts": ["5.a"]
+      },
+      {
+        "module": 3,
+        "question_number": "6.a",
+        "text": "Explain circular singly linked list with header node. Discuss its advantages over ordinary linked lists.",
+        "marks": 10,
+        "sub_parts": ["6.a"]
+      },
+      {
+        "module": 4,
+        "question_number": "7.a",
+        "text": "Define binary tree traversals (Inorder, Preorder, Postorder). Construct a binary tree given Inorder and Preorder traversals.",
+        "marks": 10,
+        "sub_parts": ["7.a"]
+      },
+      {
+        "module": 4,
+        "question_number": "8.a",
+        "text": "What is a threaded binary tree? Explain one-way and two-way in-threaded binary trees with suitable diagrams.",
+        "marks": 10,
+        "sub_parts": ["8.a"]
+      },
+      {
+        "module": 5,
+        "question_number": "9.a",
+        "text": "Explain Depth First Search (DFS) and Breadth First Search (BFS) graph traversal algorithms with adjacency matrix/list and examples.",
+        "marks": 10,
+        "sub_parts": ["9.a"]
+      },
+      {
+        "module": 5,
+        "question_number": "10.a",
+        "text": "Explain file organizations: sequential, indexed sequential, and direct file organization with advantages and disadvantages.",
+        "marks": 10,
+        "sub_parts": ["10.a"]
+      }
+    ]
+  },
+  {
+    "id": "seed_bcs304_jan2024",
+    "course_code": "BCS304",
+    "course_title": "Data Structures and Applications",
+    "scheme": "2022",
+    "branch": "CSE",
+    "semester": 3,
+    "exam_session": "Jan/Feb 2024",
+    "source_url": "https://vtu.ac.in/qp/2024/BCS304_JanFeb2024.pdf",
+    "status": "validated",
+    "questions_count": 10,
+    "raw_text": "USN: Visvesvaraya Technological University, Belagavi. Third Semester B.E. Degree Examination, Jan/Feb 2024. Course Code: BCS304. Data Structures and Applications. Time: 3 Hours. Max. Marks: 100.",
+    "questions": [
+      {
+        "module": 1,
+        "question_number": "1.a",
+        "text": "Explain linear and non-linear data structures with examples. Distinguish between static and dynamic memory allocation.",
+        "marks": 10,
+        "sub_parts": ["1.a"]
+      },
+      {
+        "module": 1,
+        "question_number": "2.a",
+        "text": "Define recursion. Write a C program to solve the Tower of Hanoi problem with recursive trace.",
+        "marks": 10,
+        "sub_parts": ["2.a"]
+      },
+      {
+        "module": 2,
+        "question_number": "3.a",
+        "text": "Define stack. Explain push, pop, display operations with array implementation and boundary conditions.",
+        "marks": 10,
+        "sub_parts": ["3.a"]
+      },
+      {
+        "module": 2,
+        "question_number": "4.a",
+        "text": "Explain conversion of infix expression to postfix expression and evaluate the postfix expression using stack.",
+        "marks": 10,
+        "sub_parts": ["4.a"]
+      },
+      {
+        "module": 3,
+        "question_number": "5.a",
+        "text": "What is a singly linked list? Write functions to insert a node at the front, delete a node from the end, and reverse a singly linked list.",
+        "marks": 10,
+        "sub_parts": ["5.a"]
+      },
+      {
+        "module": 3,
+        "question_number": "6.a",
+        "text": "Explain doubly linked list with node structure. Write C algorithms to insert a node to the left of a target key and delete a node from the doubly linked list.",
+        "marks": 10,
+        "sub_parts": ["6.a"]
+      },
+      {
+        "module": 4,
+        "question_number": "7.a",
+        "text": "Define binary tree traversals (Inorder, Preorder, Postorder). Construct a binary tree given Inorder and Preorder traversals.",
+        "marks": 10,
+        "sub_parts": ["7.a"]
+      },
+      {
+        "module": 4,
+        "question_number": "8.a",
+        "text": "Define Binary Search Tree (BST). Write algorithms to insert, search, and delete an element in a binary search tree.",
+        "marks": 10,
+        "sub_parts": ["8.a"]
+      },
+      {
+        "module": 5,
+        "question_number": "9.a",
+        "text": "Explain Depth First Search (DFS) and Breadth First Search (BFS) graph traversal algorithms with adjacency matrix/list and examples.",
+        "marks": 10,
+        "sub_parts": ["9.a"]
+      },
+      {
+        "module": 5,
+        "question_number": "10.a",
+        "text": "What is hashing? Explain collision resolution techniques: open addressing (linear probing, quadratic probing) and separate chaining with examples.",
+        "marks": 10,
+        "sub_parts": ["10.a"]
+      }
+    ]
+  },
+  {
+    "id": "seed_bcs304_jul2024",
+    "course_code": "BCS304",
+    "course_title": "Data Structures and Applications",
+    "scheme": "2022",
+    "branch": "CSE",
+    "semester": 3,
+    "exam_session": "June/July 2024",
+    "source_url": "https://vtu.ac.in/qp/2024/BCS304_JuneJuly2024.pdf",
+    "status": "validated",
+    "questions_count": 10,
+    "raw_text": "USN: Visvesvaraya Technological University, Belagavi. Third Semester B.E. Degree Examination, June/July 2024. Course Code: BCS304. Data Structures and Applications. Time: 3 Hours. Max. Marks: 100.",
+    "questions": [
+      {
+        "module": 1,
+        "question_number": "1.a",
+        "text": "Explain linear and non-linear data structures with examples. Distinguish between static and dynamic memory allocation.",
+        "marks": 10,
+        "sub_parts": ["1.a"]
+      },
+      {
+        "module": 1,
+        "question_number": "2.a",
+        "text": "What is a sparse matrix? Explain its triplet representation and write a C function to find the transpose of a sparse matrix.",
+        "marks": 10,
+        "sub_parts": ["2.a"]
+      },
+      {
+        "module": 2,
+        "question_number": "3.a",
+        "text": "Explain conversion of infix expression to postfix expression and evaluate the postfix expression using stack.",
+        "marks": 10,
+        "sub_parts": ["3.a"]
+      },
+      {
+        "module": 2,
+        "question_number": "4.a",
+        "text": "Define circular queue. Explain circular queue operations with algorithms, enqueue and dequeue, and overcome limitation of linear queue.",
+        "marks": 10,
+        "sub_parts": ["4.a"]
+      },
+      {
+        "module": 3,
+        "question_number": "5.a",
+        "text": "What is a singly linked list? Write functions to insert a node at the front, delete a node from the end, and reverse a singly linked list.",
+        "marks": 10,
+        "sub_parts": ["5.a"]
+      },
+      {
+        "module": 3,
+        "question_number": "6.a",
+        "text": "Explain circular singly linked list with header node. Discuss its advantages over ordinary linked lists.",
+        "marks": 10,
+        "sub_parts": ["6.a"]
+      },
+      {
+        "module": 4,
+        "question_number": "7.a",
+        "text": "Define binary tree traversals (Inorder, Preorder, Postorder). Construct a binary tree given Inorder and Preorder traversals.",
+        "marks": 10,
+        "sub_parts": ["7.a"]
+      },
+      {
+        "module": 4,
+        "question_number": "8.a",
+        "text": "Define Binary Search Tree (BST). Write algorithms to insert, search, and delete an element in a binary search tree.",
+        "marks": 10,
+        "sub_parts": ["8.a"]
+      },
+      {
+        "module": 5,
+        "question_number": "9.a",
+        "text": "Explain Depth First Search (DFS) and Breadth First Search (BFS) graph traversal algorithms with adjacency matrix/list and examples.",
+        "marks": 10,
+        "sub_parts": ["9.a"]
+      },
+      {
+        "module": 5,
+        "question_number": "10.a",
+        "text": "What is hashing? Explain collision resolution techniques: open addressing (linear probing, quadratic probing) and separate chaining with examples.",
+        "marks": 10,
+        "sub_parts": ["10.a"]
+      }
+    ]
+  },
+  {
+    "id": "seed_21cs52_jan2023",
+    "course_code": "21CS52",
+    "course_title": "Computer Networks and Security",
+    "scheme": "2021",
+    "branch": "CSE",
+    "semester": 5,
+    "exam_session": "Jan/Feb 2023",
+    "source_url": "https://vtu.ac.in/qp/2023/21CS52_JanFeb2023.pdf",
+    "status": "validated",
+    "questions_count": 10,
+    "raw_text": "USN: Visvesvaraya Technological University, Belagavi. Fifth Semester B.E. Degree Examination, Jan/Feb 2023. Course Code: 21CS52. Computer Networks and Security. Time: 3 Hours. Max. Marks: 100. Note: Answer any FIVE full questions, choosing ONE full question from each module.",
+    "questions": [
+      {
+        "module": 1,
+        "question_number": "1.a",
+        "text": "Explain the OSI 7-layer reference model and compare it with the TCP/IP protocol suite.",
+        "marks": 10,
+        "sub_parts": ["1.a"]
+      },
+      {
+        "module": 1,
+        "question_number": "2.a",
+        "text": "Explain packet switching vs circuit switching and calculate transmission delay, propagation delay, queuing delay, and processing delay.",
+        "marks": 10,
+        "sub_parts": ["2.a"]
+      },
+      {
+        "module": 2,
+        "question_number": "3.a",
+        "text": "Explain HTTP protocol. Compare persistent and non-persistent HTTP connections with RTT diagrams.",
+        "marks": 10,
+        "sub_parts": ["3.a"]
+      },
+      {
+        "module": 2,
+        "question_number": "4.a",
+        "text": "Explain Domain Name System (DNS). Describe recursive and iterative DNS query resolution.",
+        "marks": 10,
+        "sub_parts": ["4.a"]
+      },
+      {
+        "module": 3,
+        "question_number": "5.a",
+        "text": "Explain TCP 3-way handshake connection establishment and connection teardown with state diagrams.",
+        "marks": 10,
+        "sub_parts": ["5.a"]
+      },
+      {
+        "module": 3,
+        "question_number": "6.a",
+        "text": "Explain TCP Congestion Control mechanism: Slow Start, Additive Increase Multiplicative Decrease (AIMD), and Fast Recovery.",
+        "marks": 10,
+        "sub_parts": ["6.a"]
+      },
+      {
+        "module": 4,
+        "question_number": "7.a",
+        "text": "Explain Distance Vector Routing algorithm using Bellman-Ford equation. Explain the Count-to-Infinity problem and its solutions.",
+        "marks": 10,
+        "sub_parts": ["7.a"]
+      },
+      {
+        "module": 4,
+        "question_number": "8.a",
+        "text": "Explain Link State Routing algorithm and apply Dijkstra's algorithm to find the shortest path from a given source node.",
+        "marks": 10,
+        "sub_parts": ["8.a"]
+      },
+      {
+        "module": 5,
+        "question_number": "9.a",
+        "text": "Explain RSA public-key cryptosystem. Generate keys and encrypt/decrypt a message given prime numbers p, q, and e.",
+        "marks": 10,
+        "sub_parts": ["9.a"]
+      },
+      {
+        "module": 5,
+        "question_number": "10.a",
+        "text": "Explain Diffie-Hellman Key Exchange algorithm with a numerical example and explain Man-in-the-Middle attack.",
+        "marks": 10,
+        "sub_parts": ["10.a"]
+      }
+    ]
+  },
+  {
+    "id": "seed_21cs52_jul2023",
+    "course_code": "21CS52",
+    "course_title": "Computer Networks and Security",
+    "scheme": "2021",
+    "branch": "CSE",
+    "semester": 5,
+    "exam_session": "June/July 2023",
+    "source_url": "https://vtu.ac.in/qp/2023/21CS52_JuneJuly2023.pdf",
+    "status": "validated",
+    "questions_count": 10,
+    "raw_text": "USN: Visvesvaraya Technological University, Belagavi. Fifth Semester B.E. Degree Examination, June/July 2023. Course Code: 21CS52. Computer Networks and Security. Time: 3 Hours. Max. Marks: 100.",
+    "questions": [
+      {
+        "module": 1,
+        "question_number": "1.a",
+        "text": "Explain the OSI 7-layer reference model and compare it with the TCP/IP protocol suite.",
+        "marks": 10,
+        "sub_parts": ["1.a"]
+      },
+      {
+        "module": 1,
+        "question_number": "2.a",
+        "text": "Explain packet switching vs circuit switching and calculate transmission delay, propagation delay, queuing delay, and processing delay.",
+        "marks": 10,
+        "sub_parts": ["2.a"]
+      },
+      {
+        "module": 2,
+        "question_number": "3.a",
+        "text": "Explain HTTP protocol. Compare persistent and non-persistent HTTP connections with RTT diagrams.",
+        "marks": 10,
+        "sub_parts": ["3.a"]
+      },
+      {
+        "module": 2,
+        "question_number": "4.a",
+        "text": "Explain Domain Name System (DNS). Describe recursive and iterative DNS query resolution.",
+        "marks": 10,
+        "sub_parts": ["4.a"]
+      },
+      {
+        "module": 3,
+        "question_number": "5.a",
+        "text": "Compare Go-Back-N and Selective Repeat ARQ protocols with window mechanisms and frame sequence numbers.",
+        "marks": 10,
+        "sub_parts": ["5.a"]
+      },
+      {
+        "module": 3,
+        "question_number": "6.a",
+        "text": "Explain TCP Congestion Control mechanism: Slow Start, Additive Increase Multiplicative Decrease (AIMD), and Fast Recovery.",
+        "marks": 10,
+        "sub_parts": ["6.a"]
+      },
+      {
+        "module": 4,
+        "question_number": "7.a",
+        "text": "Explain Distance Vector Routing algorithm using Bellman-Ford equation. Explain the Count-to-Infinity problem and its solutions.",
+        "marks": 10,
+        "sub_parts": ["7.a"]
+      },
+      {
+        "module": 4,
+        "question_number": "8.a",
+        "text": "Explain IPv4 datagram format and explain subnetting and CIDR addressing with a numerical example.",
+        "marks": 10,
+        "sub_parts": ["8.a"]
+      },
+      {
+        "module": 5,
+        "question_number": "9.a",
+        "text": "Explain RSA public-key cryptosystem. Generate keys and encrypt/decrypt a message given prime numbers p, q, and e.",
+        "marks": 10,
+        "sub_parts": ["9.a"]
+      },
+      {
+        "module": 5,
+        "question_number": "10.a",
+        "text": "Explain types of firewalls (packet filtering, stateful inspection, application gateway) and Intrusion Detection Systems (IDS).",
+        "marks": 10,
+        "sub_parts": ["10.a"]
+      }
+    ]
+  },
+  {
+    "id": "seed_21cs52_jan2024",
+    "course_code": "21CS52",
+    "course_title": "Computer Networks and Security",
+    "scheme": "2021",
+    "branch": "CSE",
+    "semester": 5,
+    "exam_session": "Jan/Feb 2024",
+    "source_url": "https://vtu.ac.in/qp/2024/21CS52_JanFeb2024.pdf",
+    "status": "validated",
+    "questions_count": 10,
+    "raw_text": "USN: Visvesvaraya Technological University, Belagavi. Fifth Semester B.E. Degree Examination, Jan/Feb 2024. Course Code: 21CS52. Computer Networks and Security. Time: 3 Hours. Max. Marks: 100.",
+    "questions": [
+      {
+        "module": 1,
+        "question_number": "1.a",
+        "text": "Explain the OSI 7-layer reference model and compare it with the TCP/IP protocol suite.",
+        "marks": 10,
+        "sub_parts": ["1.a"]
+      },
+      {
+        "module": 1,
+        "question_number": "2.a",
+        "text": "Explain packet switching vs circuit switching and calculate transmission delay, propagation delay, queuing delay, and processing delay.",
+        "marks": 10,
+        "sub_parts": ["2.a"]
+      },
+      {
+        "module": 2,
+        "question_number": "3.a",
+        "text": "Explain HTTP protocol. Compare persistent and non-persistent HTTP connections with RTT diagrams.",
+        "marks": 10,
+        "sub_parts": ["3.a"]
+      },
+      {
+        "module": 2,
+        "question_number": "4.a",
+        "text": "Explain Domain Name System (DNS). Describe recursive and iterative DNS query resolution.",
+        "marks": 10,
+        "sub_parts": ["4.a"]
+      },
+      {
+        "module": 3,
+        "question_number": "5.a",
+        "text": "Explain TCP 3-way handshake connection establishment and connection teardown with state diagrams.",
+        "marks": 10,
+        "sub_parts": ["5.a"]
+      },
+      {
+        "module": 3,
+        "question_number": "6.a",
+        "text": "Explain TCP Congestion Control mechanism: Slow Start, Additive Increase Multiplicative Decrease (AIMD), and Fast Recovery.",
+        "marks": 10,
+        "sub_parts": ["6.a"]
+      },
+      {
+        "module": 4,
+        "question_number": "7.a",
+        "text": "Explain Distance Vector Routing algorithm using Bellman-Ford equation. Explain the Count-to-Infinity problem and its solutions.",
+        "marks": 10,
+        "sub_parts": ["7.a"]
+      },
+      {
+        "module": 4,
+        "question_number": "8.a",
+        "text": "Explain Link State Routing algorithm and apply Dijkstra's algorithm to find the shortest path from a given source node.",
+        "marks": 10,
+        "sub_parts": ["8.a"]
+      },
+      {
+        "module": 5,
+        "question_number": "9.a",
+        "text": "Explain RSA public-key cryptosystem. Generate keys and encrypt/decrypt a message given prime numbers p, q, and e.",
+        "marks": 10,
+        "sub_parts": ["9.a"]
+      },
+      {
+        "module": 5,
+        "question_number": "10.a",
+        "text": "Explain Diffie-Hellman Key Exchange algorithm with a numerical example and explain Man-in-the-Middle attack.",
+        "marks": 10,
+        "sub_parts": ["10.a"]
+      }
+    ]
+  },
+  {
+    "id": "seed_21cs52_jul2024",
+    "course_code": "21CS52",
+    "course_title": "Computer Networks and Security",
+    "scheme": "2021",
+    "branch": "CSE",
+    "semester": 5,
+    "exam_session": "June/July 2024",
+    "source_url": "https://vtu.ac.in/qp/2024/21CS52_JuneJuly2024.pdf",
+    "status": "validated",
+    "questions_count": 10,
+    "raw_text": "USN: Visvesvaraya Technological University, Belagavi. Fifth Semester B.E. Degree Examination, June/July 2024. Course Code: 21CS52. Computer Networks and Security. Time: 3 Hours. Max. Marks: 100.",
+    "questions": [
+      {
+        "module": 1,
+        "question_number": "1.a",
+        "text": "Explain the OSI 7-layer reference model and compare it with the TCP/IP protocol suite.",
+        "marks": 10,
+        "sub_parts": ["1.a"]
+      },
+      {
+        "module": 1,
+        "question_number": "2.a",
+        "text": "Explain physical media (guided vs unguided) and compare UTP, optical fiber, and radio transmission.",
+        "marks": 10,
+        "sub_parts": ["2.a"]
+      },
+      {
+        "module": 2,
+        "question_number": "3.a",
+        "text": "Explain HTTP protocol. Compare persistent and non-persistent HTTP connections with RTT diagrams.",
+        "marks": 10,
+        "sub_parts": ["3.a"]
+      },
+      {
+        "module": 2,
+        "question_number": "4.a",
+        "text": "Explain Domain Name System (DNS). Describe recursive and iterative DNS query resolution.",
+        "marks": 10,
+        "sub_parts": ["4.a"]
+      },
+      {
+        "module": 3,
+        "question_number": "5.a",
+        "text": "Explain TCP 3-way handshake connection establishment and connection teardown with state diagrams.",
+        "marks": 10,
+        "sub_parts": ["5.a"]
+      },
+      {
+        "module": 3,
+        "question_number": "6.a",
+        "text": "Explain TCP Congestion Control mechanism: Slow Start, Additive Increase Multiplicative Decrease (AIMD), and Fast Recovery.",
+        "marks": 10,
+        "sub_parts": ["6.a"]
+      },
+      {
+        "module": 4,
+        "question_number": "7.a",
+        "text": "Explain Distance Vector Routing algorithm using Bellman-Ford equation. Explain the Count-to-Infinity problem and its solutions.",
+        "marks": 10,
+        "sub_parts": ["7.a"]
+      },
+      {
+        "module": 4,
+        "question_number": "8.a",
+        "text": "Explain Link State Routing algorithm and apply Dijkstra's algorithm to find the shortest path from a given source node.",
+        "marks": 10,
+        "sub_parts": ["8.a"]
+      },
+      {
+        "module": 5,
+        "question_number": "9.a",
+        "text": "Explain RSA public-key cryptosystem. Generate keys and encrypt/decrypt a message given prime numbers p, q, and e.",
+        "marks": 10,
+        "sub_parts": ["9.a"]
+      },
+      {
+        "module": 5,
+        "question_number": "10.a",
+        "text": "Explain Diffie-Hellman Key Exchange algorithm with a numerical example and explain Man-in-the-Middle attack.",
+        "marks": 10,
+        "sub_parts": ["10.a"]
+      }
+    ]
+  }
+]
